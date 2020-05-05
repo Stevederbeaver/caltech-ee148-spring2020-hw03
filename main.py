@@ -235,7 +235,7 @@ def test_with_image_output(model, device, test_loader):
 
 # The following code is selected from scikit-learn.org, which take a matrix as the input and plots it
 # Reference: https://deeplizard.com/learn/video/0LhiS6yu2qQ
-def plot_confusion_matrix(cm, classes, normalize=False, title='Confusion matrix', cmap=plt.cm.Blues):
+def plot_confusion_matrix(cm, classes, normalize=True, title='Confusion matrix', cmap=plt.cm.Blues):
     if normalize:
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
         print("Normalized confusion matrix")
@@ -283,7 +283,9 @@ def test_with_confusion_matrix(model, device, test_loader, correct_label):
         100. * correct / test_num))
 
     print(len(all_pred))
+    print(all_pred)
     cm = confusion_matrix(correct_label, all_pred)
+
     label_class = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
     plot_confusion_matrix(cm, label_class)
 
@@ -470,6 +472,7 @@ def main():
 
         # Visualizing the confusion matrix
 
+
         correct_labels = test_dataset.targets
         test_with_confusion_matrix(model, device, test_loader, correct_labels)
 
@@ -479,6 +482,7 @@ def main():
         TSNE_visualize(vectors)
 
         closest_image_visualization(model, device, test_loader)
+
 
         return
 
@@ -507,7 +511,7 @@ def main():
     # training by using SubsetRandomSampler. Right now the train and validation
     # sets are built from the same indices - this is bad! Change it so that
     # the training and validation sets are disjoint and have the correct relative sizes.
-    ratio = 13.6 / 16.0
+    ratio = 8.0 / 16.0
     trainset_size = np.round(ratio * dataset_size)
     train_indices = np.random.choice(dataset_size, int(trainset_size), replace=False)
     entire_set = range(dataset_size)
@@ -552,7 +556,6 @@ def main():
 
     if args.save_model:
         torch.save(model.state_dict(), "mnist_model.pt")
-
 
 if __name__ == '__main__':
     main()
