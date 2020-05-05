@@ -507,7 +507,7 @@ def main():
     # training by using SubsetRandomSampler. Right now the train and validation
     # sets are built from the same indices - this is bad! Change it so that
     # the training and validation sets are disjoint and have the correct relative sizes.
-    ratio = 8.0 / 16.0
+    ratio = 13.6 / 16.0
     trainset_size = np.round(ratio * dataset_size)
     train_indices = np.random.choice(dataset_size, int(trainset_size), replace=False)
     entire_set = range(dataset_size)
